@@ -1,0 +1,19 @@
+- name: Configure Scheduled Tasks on example.com
+  hosts: example.com
+  gather_facts: no
+
+  tasks:
+    - name: Create scheduled task
+      win_scheduled_task:
+        name: EXAMPLE_LIB_FULL
+        description: "Run EXAMPLE_FULL task-TEST"
+        actions:
+        - path: cmd.exe
+          arguments: /c E:\Example\example.bat
+        triggers:
+        - type: daily
+          start_boundary: '2024-01-22T02:30:00'
+        state: present
+        enabled: false
+        username: EXAMPLE{{ program }}{{ env }}svc
+        password: EXAMPLE{{ program }}{{ env }}svc_pw
